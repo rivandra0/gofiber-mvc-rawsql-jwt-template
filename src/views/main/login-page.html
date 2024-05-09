@@ -1,0 +1,42 @@
+
+
+<main>
+    <h1>LOGIN PAGE</h1>
+    <div>
+        <input id="email">
+        <input id="password">
+        <button onclick="login()">LOGIN</button>
+    </div>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script defer>
+    async function login () {
+        let UserNameElem = document.getElementById("email")
+        let PassElem = document.getElementById("password")
+
+        Email = UserNameElem.value
+        Password = PassElem.value
+        // Construct the request body
+        let requestBody = {Email, Password};
+
+        try {
+            const response = await axios.post('api/auth/login', requestBody, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            console.log('res', response);
+            const data = response.data;
+            // Handle successful login response
+            console.log(data);
+            // Redirect or do something with the response data
+            // similar behavior as clicking on a link
+            window.location.href = "../Dashboard";
+        } catch (error) {
+            // Handle error during login
+            console.error('There was a problem with the login:', error);
+        }
+    }
+</script>
